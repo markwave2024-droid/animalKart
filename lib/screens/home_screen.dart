@@ -1,3 +1,6 @@
+import 'package:animal_kart_demo2/screens/tabs_screens/buffalo_list_screen.dart';
+import 'package:animal_kart_demo2/screens/tabs_screens/cart_screen.dart';
+import 'package:animal_kart_demo2/screens/tabs_screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,10 +14,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
-    _HomePage(),
+    BuffaloListScreen(),
     _SearchPage(),
-    _CartPage(),
-    _ProfilePage(),
+    CartScreen(),
+    UserProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -27,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false, 
         title: const Text('AnimalKart'),
         actions: [
           IconButton(
