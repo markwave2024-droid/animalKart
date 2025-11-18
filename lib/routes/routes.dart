@@ -3,12 +3,14 @@ import 'package:animal_kart_demo2/screens/splash_screen.dart';
 import 'package:animal_kart_demo2/screens/login_screen.dart';
 import 'package:animal_kart_demo2/screens/otp_screen.dart';
 import 'package:animal_kart_demo2/screens/profile_form_screen.dart';
+import 'package:animal_kart_demo2/screens/home_screen.dart';
 
 class AppRoutes {
   static const String splash = '/';
   static const String login = '/login';
   static const String otp = '/otp';
   static const String profileForm = '/profile-form';
+  static const String home = '/home';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -23,6 +25,8 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => ProfileFormScreen(mobileNumber: phoneNumber),
         );
+      case home:
+        return MaterialPageRoute(builder: (_) => const HomeScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

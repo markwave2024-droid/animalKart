@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:animal_kart_demo2/routes/routes.dart';
 // import 'package:geolocator/geolocator.dart';
 
 class ProfileFormScreen extends StatefulWidget {
@@ -102,11 +103,34 @@ class _ProfileFormScreenState extends State<ProfileFormScreen> {
     );
   }
 
-  void _saveForm() {
+  void _saveForm() async {
     if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('✅ Profile saved successfully!')),
+      // Show loading indicator
+      final scaffoldMessenger = ScaffoldMessenger.of(context);
+      scaffoldMessenger.showSnackBar(
+        const SnackBar(
+          content: Row(
+            children: [
+              CircularProgressIndicator(color: Colors.white),
+              SizedBox(width: 16),
+              Text('Saving profile...'),
+            ],
+          ),
+          duration: Duration(seconds: 2),
+        ),
       );
+
+      // Simulate API call delay
+      await Future.delayed(const Duration(seconds: 2));
+
+      // Navigate to home screen after successful save
+      if (mounted) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRoutes.home,
+          (route) => false,
+        );
+      }
     }
   }
 
