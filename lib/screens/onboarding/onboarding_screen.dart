@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:animal_kart_demo2/routes/routes.dart';
 import 'package:animal_kart_demo2/utils/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,36 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int currentIndex = 0;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 🔥 Auto-scroll every 2 seconds
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      if (currentIndex < AppConstants.onboardingData.length - 1) {
+        currentIndex++;
+      } else {
+        currentIndex = 0;
+      }
+
+      _pageController.animateToPage(
+        currentIndex,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,12 +145,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             const SizedBox(height: 10),
 
-            /// PAGE DOT INDICATORS
+            /// DOT INDICATORS
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(AppConstants.onboardingData.length, (
-                index,
-              ) {
+              children:
+                  List.generate(AppConstants.onboardingData.length, (index) {
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
                   margin: const EdgeInsets.symmetric(horizontal: 5),
