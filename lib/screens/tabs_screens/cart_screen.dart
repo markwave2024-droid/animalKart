@@ -1,13 +1,16 @@
 import 'package:animal_kart_demo2/controllers/buffalo_provider.dart';
 import 'package:animal_kart_demo2/controllers/cart_provider.dart';
+import 'package:animal_kart_demo2/screens/services/razorpay_service.dart';
 import 'package:animal_kart_demo2/theme/app_theme.dart';
 import 'package:animal_kart_demo2/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 class CartScreen extends ConsumerWidget {
   final bool showAppBar;
   const CartScreen({super.key, this.showAppBar = false});
+   
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -108,7 +111,17 @@ class CartScreen extends ConsumerWidget {
             child: SizedBox(
               height: 55,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                   final razorPay = RazorPayService();
+
+                    int totalAmount = 0;
+                    for (var b in items) {
+                      final c = cart[b.id]!;
+                      totalAmount += (b.price * c.qty) + c.insurancePaid;
+                    }
+
+                    razorPay.openPayment(amount: totalAmount);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kPrimaryGreen,
                   shape: RoundedRectangleBorder(

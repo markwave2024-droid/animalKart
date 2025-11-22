@@ -137,14 +137,13 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
           const SizedBox(height: 14),
 
-          // ===================== NAME =====================
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               name,
               style: const TextStyle(
                 fontSize: 20,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: Color(0xFF111827),
               ),
             ),
@@ -152,7 +151,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
           const SizedBox(height: 6),
 
-          // ===================== PRICE =====================
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
