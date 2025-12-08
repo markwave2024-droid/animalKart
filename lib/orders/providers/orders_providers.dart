@@ -24,7 +24,13 @@ class OrdersNotifier extends StateNotifier<List<OrderModel>> {
         orderStatus: "pending",
         userVerified: false,
         invoiceUrl: null,
+        orderPlacedOn: "2025-12-01",
+
+        // ✅ NEW REQUIRED FIELDS
+        cpfQuantity: 1,     // example: 5 CPF taken
+        paidAmount: null,  // not paid yet
       ),
+
       OrderModel(
         id: "ORD-1002",
         buffaloId: "MURRAH-001",
@@ -38,6 +44,11 @@ class OrdersNotifier extends StateNotifier<List<OrderModel>> {
         orderStatus: "confirmed",
         userVerified: true,
         invoiceUrl: "https://example.com/invoice_1002.pdf",
+        orderPlacedOn: "2025-12-03",
+
+        // ✅ NEW REQUIRED FIELDS
+        cpfQuantity: 1,       // example: 10 CPF taken
+        paidAmount: 50000,    // ✅ paid amount available
       ),
     ];
   }

@@ -57,75 +57,73 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).mainThemeBgColor,
 
-      // ---- CONDITIONAL APPBAR ----
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).isLightTheme
-            ? kPrimaryDarkColor
-            : akDialogBackgroundColor,
-        elevation: 0,
-        toolbarHeight: 90,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-        ),
-        centerTitle: true,
-        title:
-            _selectedIndex ==
-                3 // Profile tab
-            ? Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    userProfile?.name ?? 'User Profile',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryTextColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  if (userProfile?.phone != null)
-                    Text(
-                      '+91 ${userProfile!.phone}',
-                      style: TextStyle(
-                        color: Theme.of(context).subTotalsTextColor,
-                        fontSize: 18,
-                      ),
-                    ),
-                ],
-              )
-            : Row(
-                children: [
-                  Image.asset('assets/images/onboard_logo.png', height: 50),
-                  const SizedBox(width: 8),
-                ],
+      // ---------- CONDITIONAL COMMON APPBAR ----------
+      appBar: _selectedIndex == 1
+          ? null // Hide common AppBar on Orders tab
+          : AppBar(
+              automaticallyImplyLeading: false,
+              backgroundColor: Theme.of(context).isLightTheme
+                  ? kPrimaryDarkColor
+                  : akDialogBackgroundColor,
+              elevation: 0,
+              toolbarHeight: 90,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
               ),
-        actions:
-            _selectedIndex ==
-                3 // Profile tab
-            ? [] // Hide actions on profile tab
-            : [
+              centerTitle: true,
+              title: _selectedIndex == 2 // Profile tab
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          userProfile?.name ?? 'User Profile',
+                          style: TextStyle(
+                            color: Theme.of(context).primaryTextColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        if (userProfile?.phone != null)
+                          Text(
+                            '+91 ${userProfile!.phone}',
+                            style: TextStyle(
+                              color: Theme.of(context).subTotalsTextColor,
+                              fontSize: 18,
+                            ),
+                          ),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        Image.asset('assets/images/onboard_logo.png', height: 50),
+                        const SizedBox(width: 8),
+                      ],
+                    ),
+              actions: _selectedIndex == 2
+                  ? [] // Hide actions on profile tab
+                  : [
                 // ThemeToggleButton(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 16),
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white24,
-                    ),
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.notifications_none_sharp,
-                        color: Colors.white,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white24,
+                          ),
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.notifications_none_sharp,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {},
+                          ),
+                        ),
                       ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-              ],
-      ),
+                    ],
+            ),
 
       body: _pages[_selectedIndex],
 
@@ -181,7 +179,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               //       ),
               //   ],
               // ),
-                _navItem(index: 1, icon: Icons.shopping_cart, label: "Orders"),
+              _navItem(index: 1, icon: Icons.shopping_cart, label: "Orders"),
 
               _navItem(index: 2, icon: Icons.person_outline, label: "Profile"),
             ],
